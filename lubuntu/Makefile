@@ -11,13 +11,12 @@ start:
 	-it \
 	-d \
 	--rm \
-	-p 6080:80 \
 	-p 5900:5900 \
 	-e VNC_PASSWORD=vncrocks \
-	dorowu/ubuntu-desktop-lxde-vnc
+	mindreframer/docker-dev-lubuntu
 
 
-DPID:=$(shell docker ps|grep ubuntu-desktop-lxde-vnc|awk '{print $$1}')
+DPID:=$(shell docker ps|grep docker-dev-lubuntu|awk '{print $$1}')
 
 kill:
 	docker kill ${DPID}
