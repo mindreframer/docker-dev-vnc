@@ -6,6 +6,8 @@ Links:
   - http://wiki.ros.org/docker/Tutorials/GUI
 
 
+  https://github.com/DesktopContainers
+
 ## Alternatives to VNC:
 
 Xpra:
