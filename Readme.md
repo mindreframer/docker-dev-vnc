@@ -1,4 +1,6 @@
 Links:
+  - https://serverfault.com/questions/227542/what-alternatives-to-vnc-are-there-for-linux
+  - https://www.lowendtalk.com/discussion/32081/any-known-faster-alternatives-than-vnc-linux
   - https://forums.docker.com/t/how-to-run-gui-apps-in-containiers-in-osx-docker-for-mac/17797/4
   - https://github.com/deskor/xrdp
   - http://wiki.ros.org/docker/Tutorials/GUI
@@ -26,4 +28,4 @@ X2Go:
 
 NoMachine:
   http://download.nomachine.com/download/5.2/Linux/nomachine_5.2.21_1_amd64.deb
-
+  https://www.linux.com/news/faster-remote-desktop-connections-freenx
