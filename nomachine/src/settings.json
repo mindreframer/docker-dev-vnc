@@ -1,7 +1,0 @@
-// Place your settings in this file to overwrite the default settings
-{
-    "go.toolsGopath": "/vscode-data",
-    "editor.fontSize": 16,
-    "editor.fontFamily": "'Hack', 'Droid Sans Mono', 'Courier New', monospace, 'Droid Sans Fallback'",
-    "go.gopath": "/work/libraries:/work"
-}

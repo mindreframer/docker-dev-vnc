@@ -39,14 +39,17 @@ RUN chmod +x /bin/tini
 ADD src/image /
 
 WORKDIR /root
-ADD src/install /root/install
-RUN chmod +x /root/install/nomachine.sh && /root/install/nomachine.sh
+ADD src/install/rootpass.sh /root/install/rootpass.sh
 RUN chmod +x /root/install/rootpass.sh && /root/install/rootpass.sh
-RUN chmod +x /root/install/nxserver.sh
 
-CMD /root/install/nxserver.sh
+ADD src/install/golang.sh /root/install/golang.sh
+RUN chmod +x /root/install/golang.sh && /root/install/golang.sh
+# RUN chmod +x /root/install/nomachine.sh && /root/install/nomachine.sh
+# RUN chmod +x /root/install/nxserver.sh
+
+# CMD /root/install/nxserver.sh
 
 
-# ENV HOME=/home/ubuntu \
-#     SHELL=/bin/bash
-# ENTRYPOINT ["/startup.sh"]
+ENV HOME=/home/ubuntu \
+    SHELL=/bin/bash
+ENTRYPOINT ["/startup.sh"]
