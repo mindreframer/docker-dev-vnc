@@ -12,6 +12,7 @@ start:
 	--rm \
 	-p 5900:5900 \
 	-p 6000:4000 \
+	--cap-add=SYS_PTRACE \
 	-e VNC_PASSWORD=vncrocks \
 	mindreframer/docker-dev-lubuntu
 

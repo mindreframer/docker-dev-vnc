@@ -7,8 +7,8 @@ set -e
 
 
 
-NOMACHINE_PACKAGE_NAME=nomachine_5.2.11_1_amd64.deb
-NOMACHINE_MD5=d697e5a565507d522380c94d2f295d07
+NOMACHINE_PACKAGE_NAME=nomachine_5.2.21_1_amd64.deb
+NOMACHINE_MD5=48787b8175e68a741a0272b2c255799f
 # Install nomachine, change password and username to whatever you want here
 curl -fSL "http://download.nomachine.com/download/5.2/Linux/${NOMACHINE_PACKAGE_NAME}" -o nomachine.deb \
         && echo "${NOMACHINE_MD5} *nomachine.deb" | md5sum -c - \
