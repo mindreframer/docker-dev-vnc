@@ -13,5 +13,6 @@ if [ -n "$VNC_PASSWORD" ]; then
     sed -i 's/^command=x11vnc.*/& -rfbauth \/.password2/' /etc/supervisor/conf.d/supervisord.conf
     export VNC_PASSWORD=
 fi
-
+# start NX server
+/etc/init.d/nxserver start
 exec /bin/tini -- /usr/bin/supervisord -n

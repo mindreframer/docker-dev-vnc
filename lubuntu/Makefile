@@ -9,9 +9,9 @@ build:
 start:
 	docker run \
 	-it \
-	-d \
 	--rm \
 	-p 5900:5900 \
+	-p 6000:4000 \
 	-e VNC_PASSWORD=vncrocks \
 	mindreframer/docker-dev-lubuntu
 

@@ -33,12 +33,20 @@ RUN apt-get update \
 
 # tini for subreap
 ENV TINI_VERSION v0.9.0
-ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /bin/tini
+RUN curl -L -o /bin/tini https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini
 RUN chmod +x /bin/tini
 
 ADD src/image /
 
 WORKDIR /root
-ENV HOME=/home/ubuntu \
-    SHELL=/bin/bash
-ENTRYPOINT ["/startup.sh"]
+ADD src/install /root/install
+RUN chmod +x /root/install/nomachine.sh && /root/install/nomachine.sh
+RUN chmod +x /root/install/rootpass.sh && /root/install/rootpass.sh
+RUN chmod +x /root/install/nxserver.sh
+
+CMD /root/install/nxserver.sh
+
+
+# ENV HOME=/home/ubuntu \
+#     SHELL=/bin/bash
+# ENTRYPOINT ["/startup.sh"]
