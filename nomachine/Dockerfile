@@ -40,14 +40,77 @@ RUN curl -fSL "http://download.nomachine.com/download/5.2/Linux/${NOMACHINE_PACK
 # install add-apt-repository stuff to get tor-browser working
 RUN apt-get install -y  \
     wget xdg-utils libpango1.0-0 fonts-liberation htop nano git vim
-# download tor and install
 
-# python3-software-properties \
-# python-software-properties \
-# software-properties-common
-#RUN add-apt-repository ppa:webupd8team/tor-browser
-#RUN apt-get update -y && apt-get install -y tor firefox libreoffice htop nano git vim tor-browser
-# RUN apt-get update -y && apt-get install -y tor firefox libreoffice
+
+
+
+
+
+
+
+# Tools for use with Go
+RUN apt-get -y install wget bzip2 git-core net-tools
+
+# golang itself
+RUN wget http://golang.org/dl/go1.8.linux-amd64.tar.gz -q -O - | tar -zxf - -C /usr/local && \
+    chmod -R a+rwx /usr/local/go
+ENV GOROOT /usr/local/go
+ENV PATH $PATH:$GOROOT/bin
+
+# install vscode
+RUN apt-get -qy install apt-utils
+RUN apt-get -qy install make libnotify4 libnss3 libxkbfile1 libgtk2.0-0 libxss1 libgconf-2-4 gcc sudo unzip libgl.1 "^libxcb.*"
+RUN wget -q -O vscode-amd64.deb  https://go.microsoft.com/fwlink/?LinkID=760868
+RUN dpkg -i vscode-amd64.deb
+RUN rm vscode-amd64.deb
+
+# install hack font
+run wget 'https://github.com/chrissimpkins/Hack/releases/download/v2.020/Hack-v2_020-ttf.zip'
+run unzip Hack*.zip
+run mkdir /usr/share/fonts/truetype/Hack
+run mv Hack* /usr/share/fonts/truetype/Hack
+run fc-cache -f -v
+
+# Add tools
+RUN mkdir /tools &&\
+    cd /tools &&\
+		GOPATH=/tools go get github.com/alecthomas/gometalinter &&\
+    GOPATH=/tools /tools/bin/gometalinter --install &&\
+    GOPATH=/tools go get -u github.com/kardianos/govendor &&\
+    GOPATH=/tools go get -u github.com/rogpeppe/godef &&\
+    GOPATH=/tools go get -u github.com/golang/lint/golint &&\
+    GOPATH=/tools go get -u github.com/derekparker/delve/cmd/dlv &&\
+    GOPATH=/tools go get -u github.com/nsf/gocode &&\
+    GOPATH=/tools go get -u github.com/tpng/gopkgs &&\
+    GOPATH=/tools go get -u github.com/lukehoban/go-outline &&\
+    GOPATH=/tools go get -u github.com/acroca/go-symbols &&\
+    GOPATH=/tools go get -u golang.org/x/tools/cmd/guru &&\
+    GOPATH=/tools go get -u golang.org/x/tools/cmd/gorename &&\
+    GOPATH=/tools go get -u github.com/fatih/gomodifytags &&\
+    GOPATH=/tools go get -u golang.org/x/tools/cmd/godoc &&\
+    GOPATH=/tools go get -u github.com/rogpeppe/godef &&\
+    GOPATH=/tools go get -u github.com/zmb3/gogetdoc &&\
+    GOPATH=/tools go get -u golang.org/x/tools/cmd/goimports &&\
+    GOPATH=/tools go get -u sourcegraph.com/sqs/goreturns &&\
+    GOPATH=/tools go get -u github.com/golang/lint/golint &&\
+    GOPATH=/tools go get -u github.com/cweill/gotests/... &&\
+    GOPATH=/tools go get -u github.com/sourcegraph/go-langserver
+
+ENV PATH $PATH:/tools/bin
+
+# The default directories where the code and profiles will be
+WORKDIR /work
+ENV GOPATH /work
+ENV GOBIN=/work/bin
+
+# The directory where the local IDE profile is stored.
+RUN mkdir -p /vscode-data
+ENV HOME /vscode-data
+COPY src/gitconfig /vscode-data/.gitconfig
+COPY src/settings.json /vscode-data/User/settings.json
+
+
+
 
 ADD nxserver.sh /nxserver.sh
 RUN chmod 0755 /nxserver.sh
